@@ -1,9 +1,16 @@
 import { PROJECTS } from "@/config/projects";
 import type { LiveProject, ProjectManifest, ProjectData } from "@/types/dashboard";
 
+// When the engines are behind Cloudflare Access (deployed), the hub presents a
+// service token. Locally these are unset → no headers → direct localhost works.
+const accessHeaders: Record<string, string> =
+  process.env.CF_ACCESS_CLIENT_ID && process.env.CF_ACCESS_CLIENT_SECRET
+    ? { "CF-Access-Client-Id": process.env.CF_ACCESS_CLIENT_ID, "CF-Access-Client-Secret": process.env.CF_ACCESS_CLIENT_SECRET }
+    : {};
+
 async function getJson<T>(url: string): Promise<T | null> {
   try {
-    const r = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(4500) });
+    const r = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(6000), headers: accessHeaders });
     if (!r.ok) return null;
     return (await r.json()) as T;
   } catch {
