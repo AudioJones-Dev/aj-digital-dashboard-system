@@ -1,7 +1,7 @@
 import { loadProject } from "@/lib/projects";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
-import { CommandList } from "@/components/dashboard/CommandList";
+import { CommandRunner } from "@/components/dashboard/CommandRunner";
 import { EmptyState } from "@/components/dashboard/EmptyState";
 import { notFound } from "next/navigation";
 
@@ -59,8 +59,8 @@ export default async function Overview({ params }: { params: { projectId: string
 
       {p.manifest && (
         <section>
-          <h3 className="text-xs uppercase tracking-wider text-tx2 font-semibold mb-2">Commands</h3>
-          <CommandList commands={p.manifest.commands} />
+          <h3 className="text-xs uppercase tracking-wider text-tx2 font-semibold mb-2">Commands <span className="text-tx2 font-normal normal-case tracking-normal">· low-risk runs on click; medium/high confirm · localhost-only, audited</span></h3>
+          <CommandRunner url={p.url} commands={p.manifest.commands} />
         </section>
       )}
     </div>
