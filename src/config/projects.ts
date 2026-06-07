@@ -6,5 +6,5 @@ import type { ProjectEntry } from "@/types/dashboard";
 export const PROJECTS: ProjectEntry[] = [
   { id: "aj-digital-os", url: "http://localhost:7421" },
   { id: "responseos", url: "http://localhost:7422" },
-  // { id: "audiojonesops",  url: "http://localhost:7423" },
+  { id: "audiojones-com", url: "http://localhost:7423" },
 ];
