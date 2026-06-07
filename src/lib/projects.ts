@@ -3,10 +3,12 @@ import type { LiveProject, ProjectManifest, ProjectData } from "@/types/dashboar
 
 // When the engines are behind Cloudflare Access (deployed), the hub presents a
 // service token. Locally these are unset → no headers → direct localhost works.
-const accessHeaders: Record<string, string> =
-  process.env.CF_ACCESS_CLIENT_ID && process.env.CF_ACCESS_CLIENT_SECRET
+const accessHeaders: Record<string, string> = {
+  ...(process.env.AJ_API_TOKEN ? { "x-aj-token": process.env.AJ_API_TOKEN } : {}),
+  ...(process.env.CF_ACCESS_CLIENT_ID && process.env.CF_ACCESS_CLIENT_SECRET
     ? { "CF-Access-Client-Id": process.env.CF_ACCESS_CLIENT_ID, "CF-Access-Client-Secret": process.env.CF_ACCESS_CLIENT_SECRET }
-    : {};
+    : {}),
+};
 
 async function getJson<T>(url: string): Promise<T | null> {
   try {
