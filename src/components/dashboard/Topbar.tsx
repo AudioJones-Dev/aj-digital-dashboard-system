@@ -13,7 +13,7 @@ function Logo() {
 
 export function Topbar({ title, subtitle, right }: { title: string; subtitle?: string; right?: ReactNode }) {
   return (
-    <header className="rounded-card border border-line bg-gradient-to-r from-[#161d27] to-[#111722] px-6 py-5 mb-4 flex items-center gap-4 sticky top-2 z-50">
+    <header className="rounded-card border border-line bg-gradient-to-r from-[#161d27] to-[#111722] px-6 py-5 mb-4 flex items-center gap-4">
       <Logo />
       <div className="flex-1 min-w-0">
         <h1 className="font-display text-xl font-bold truncate">{title}</h1>

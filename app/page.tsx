@@ -32,9 +32,6 @@ export default async function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {projects.map((p) => <ProjectCard key={p.id} p={p} />)}
       </div>
-      <footer className="text-center text-tx2 text-xs mt-8">
-        Reads each project&apos;s <code>/api/manifest</code> + <code>/api/data</code> · register projects in <code>src/config/projects.ts</code>
-      </footer>
     </main>
   );
 }
