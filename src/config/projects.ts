@@ -5,6 +5,6 @@ import type { ProjectEntry } from "@/types/dashboard";
 // Add a project by pointing at its localhost URL — no per-repo UI code required.
 export const PROJECTS: ProjectEntry[] = [
   { id: "aj-digital-os", url: "http://localhost:7421" },
-  // { id: "responseos",     url: "http://localhost:7422" },
+  { id: "responseos", url: "http://localhost:7422" },
   // { id: "audiojonesops",  url: "http://localhost:7423" },
 ];
