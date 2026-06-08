@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 import { PROJECT_NAV, EXTERNAL_LINKS } from "@/config/nav";
 
 function Mark() {
@@ -31,6 +32,11 @@ export function TopNav() {
         {EXTERNAL_LINKS.map((l) => (
           <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="px-3 py-1.5 rounded-lg text-sm text-tx2 hover:text-signal transition hidden lg:block">{l.label} ↗</a>
         ))}
+        {process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && (
+          <SignedIn>
+            <div className="ml-2 flex items-center"><UserButton afterSignOutUrl="/sign-in" /></div>
+          </SignedIn>
+        )}
       </nav>
     </header>
   );
