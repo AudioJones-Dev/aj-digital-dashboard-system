@@ -5,7 +5,7 @@ import { NextResponse, type NextRequest } from "next/server";
 //   1. Clerk        — when NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY is set (login page, reset, MFA)
 //   2. Basic Auth   — when HUB_USER + HUB_PASS are set (interim gate; never public)
 //   3. Open         — local dev with neither configured
-const isPublicRoute = createRouteMatcher(["/sign-in(.*)"]);
+const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)"]);
 const clerkEnabled = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 function basicAuth(req: NextRequest) {
