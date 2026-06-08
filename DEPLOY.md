@@ -8,10 +8,11 @@ engines are reachable from the internet (a Vercel function cannot reach your
 - **Host:** Vercel · **Domain:** `dash.ajdigital.app` (DNS on Cloudflare) · **Auth:** Cloudflare Access.
 
 ## A. Make the engines reachable (required first)
-A deployed hub fetches each project's `/api/manifest`, `/api/data`, `/api/run`.
+A deployed hub fetches each project's `/api/manifest` and `/api/data` by default.
+`/api/run` is an optional, separately approved capability.
 Pick one:
 
-1. **Cloudflare Tunnel per engine (recommended — keeps everything live, incl. command run).**
+1. **Cloudflare Tunnel per engine (recommended — keeps live read data available).**
    On the machine running the engines:
    ```bash
    cloudflared tunnel create aj-engines
@@ -47,6 +48,7 @@ Pick one:
 
 ## D. Security posture
 - Operator dashboards behind Cloudflare Access (never public).
-- `/api/run` stays **localhost-only** at the engine; remote command execution must go through
-  an Access-gated tunnel with a service token — design before enabling remote `Run`.
+- `/api/run` stays **localhost-only** at the engine by default. Remote command execution must
+  go through an Access-gated tunnel with a service token and `NEXT_PUBLIC_ENABLE_COMMAND_RUNNER=true`
+  — design before enabling remote `Run`.
 - No secrets in the hub; engine `.env` (NOTION_TOKEN) stays on the local machine.

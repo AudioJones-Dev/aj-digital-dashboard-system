@@ -6,7 +6,11 @@ import { NextResponse, type NextRequest } from "next/server";
 //   2. Basic Auth   — when HUB_USER + HUB_PASS are set (interim gate; never public)
 //   3. Open         — local dev with neither configured
 const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)"]);
-const clerkEnabled = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+const localOpen =
+  process.env.NODE_ENV === "development" &&
+  process.env.HUB_LOCAL_OPEN !== "false" &&
+  process.env.HUB_AUTH_MODE !== "clerk";
+const clerkEnabled = !localOpen && !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 function basicAuth(req: NextRequest) {
   const user = process.env.HUB_USER;

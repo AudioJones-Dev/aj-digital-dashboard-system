@@ -11,7 +11,11 @@ export const metadata: Metadata = {
   description: "Reusable local-first project control surface for AJ Digital repos.",
 };
 
-const clerkEnabled = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+const localOpen =
+  process.env.NODE_ENV === "development" &&
+  process.env.HUB_LOCAL_OPEN !== "false" &&
+  process.env.HUB_AUTH_MODE !== "clerk";
+const clerkEnabled = !localOpen && !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 // Operator-only: a signed-in user must carry publicMetadata.role === "admin".
 // Unauthenticated requests never reach here (middleware redirects to /sign-in).

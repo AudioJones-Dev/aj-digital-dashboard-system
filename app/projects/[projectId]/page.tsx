@@ -2,10 +2,12 @@ import { loadProject } from "@/lib/projects";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { CommandRunner } from "@/components/dashboard/CommandRunner";
+import { CommandList } from "@/components/dashboard/CommandList";
 import { EmptyState } from "@/components/dashboard/EmptyState";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
+const commandRunnerEnabled = process.env.NEXT_PUBLIC_ENABLE_COMMAND_RUNNER === "true";
 
 export default async function Overview({ params }: { params: { projectId: string } }) {
   const p = await loadProject(params.projectId);
@@ -59,8 +61,19 @@ export default async function Overview({ params }: { params: { projectId: string
 
       {p.manifest && (
         <section>
-          <h3 className="text-xs uppercase tracking-wider text-tx2 font-semibold mb-2">Commands <span className="text-tx2 font-normal normal-case tracking-normal">· low-risk runs on click; medium/high confirm · localhost-only, audited</span></h3>
-          <CommandRunner url={p.url} commands={p.manifest.commands} />
+          <h3 className="text-xs uppercase tracking-wider text-tx2 font-semibold mb-2">
+            Commands{" "}
+            <span className="text-tx2 font-normal normal-case tracking-normal">
+              {commandRunnerEnabled
+                ? "· low-risk runs on click; medium/high confirm · localhost-only, audited"
+                : "· display-only until command execution is explicitly enabled"}
+            </span>
+          </h3>
+          {commandRunnerEnabled ? (
+            <CommandRunner url={p.url} commands={p.manifest.commands} />
+          ) : (
+            <CommandList commands={p.manifest.commands} />
+          )}
         </section>
       )}
     </div>

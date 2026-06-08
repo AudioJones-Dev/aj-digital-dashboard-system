@@ -9,7 +9,7 @@ import type { ProjectEntry } from "@/types/dashboard";
 const engine = (key: string, dev: string) => process.env[key] || dev;
 
 export const PROJECTS: ProjectEntry[] = [
-  { id: "aj-digital-os", url: engine("ENGINE_AJ_DIGITAL_OS", "http://localhost:7421") },
-  { id: "responseos", url: engine("ENGINE_RESPONSEOS", "http://localhost:7422") },
-  { id: "audiojones-com", url: engine("ENGINE_AUDIOJONES_COM", "http://localhost:7423") },
+  { id: "aj-digital-os", url: engine("ENGINE_AJ_DIGITAL_OS", "http://127.0.0.1:7421") },
+  { id: "responseos", url: engine("ENGINE_RESPONSEOS", "http://127.0.0.1:7422") },
+  { id: "audiojones-com", url: engine("ENGINE_AUDIOJONES_COM", "http://127.0.0.1:7423") },
 ];
